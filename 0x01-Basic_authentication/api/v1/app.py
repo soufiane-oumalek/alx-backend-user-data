@@ -45,22 +45,18 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def authenticate_user():
-    """Authenticates a user to request.
+def before_request():
     """
-    if auth:
-        excluded_paths = [
-            '/api/v1/status/',
-            '/api/v1/unauthorized/',
-            '/api/v1/forbidden/',
-        ]
-        if auth.require_auth(request.path, excluded_paths):
-            authoriz_header = auth.authorization_header(request)
-            curent_user = auth.current_user(request)
-            if authoriz_header is None:
-                abort(401)
-            if curent_user is None:
-                abort(403)
+    handler before_request
+    """
+    auth_list = ['/api/v1/status/',
+                 '/api/v1/unauthorized/', '/api/v1/forbidden/']
+
+    if auth and auth.require_auth(request.path, auth_list):
+        if not auth.authorization_header(request):
+            abort(401)
+        if not auth.current_user(request):
+            abort(403)
 
 
 if __name__ == "__main__":
