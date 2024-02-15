@@ -25,12 +25,14 @@ def view_one_user(user_id: str = None) -> str:
       - User object JSON represented
       - 404 if the User ID doesn't exist
     """
-    if user_id == 'me' and request.current_user is None:
-        abort(404)
-    if user_id == 'me' and request.current_user:
-        return jsonify(request.current_user.to_json())
     if user_id is None:
         abort(404)
+    if user_id == "me":
+        if request.current_user is None:
+            abort(404)
+        user = request.current_user
+        return jsonify(user.to_json())
+
     user = User.get(user_id)
     if user is None:
         abort(404)
@@ -61,8 +63,8 @@ def create_user() -> str:
     JSON body:
       - email
       - password
-      - last_name
-      - first_name
+      - last_name (optional)
+      - first_name (optional)
     Return:
       - User object JSON represented
       - 400 if can't create the new User
