@@ -11,12 +11,12 @@ User = TypeVar('User')
 
 class Auth:
     """
-    class to manage API authentication
+    class API authentication
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
-        returns False
+        authentication method
         """
         check = path
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
@@ -29,7 +29,7 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """
-        returns request None
+        authorization method
         """
         if request is None:
             return None
@@ -37,6 +37,13 @@ class Auth:
 
     def current_user(self, request=None) -> User:
         """
-        returns request None
+        current method
         """
         return None
+
+    def session_cookie(self, request=None):
+        """ returns a request cookie  """
+        if request is None:
+            return None
+        session = getenv('SESSION_NAME')
+        return request.cookies.get(session)
