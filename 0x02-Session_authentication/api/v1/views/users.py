@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module of Users views
+""" Module Users views
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request
@@ -11,7 +11,7 @@ import os
 def authenticated_user_object() -> str:
     """ GET /api/v1/users/me
     Return:
-      - the authenticated User object.
+      - the authentication User .
     """
     return jsonify(request.current_user.to_json())
 
@@ -111,8 +111,8 @@ def update_user(user_id: str = None) -> str:
       - last_name (optional)
       - first_name (optional)
     Return:
-      - User object JSON represented
-      - 404 if the User ID doesn't exist
+      - User object json represented
+      - 404 if the User id doesn't exist
       - 400 if can't update the User
     """
     if user_id is None:

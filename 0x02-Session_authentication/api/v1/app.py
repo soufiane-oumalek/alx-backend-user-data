@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Route module for the API
+module for the API
 """
 from os import getenv
 from api.v1.views import app_views
@@ -39,11 +39,11 @@ def run_before_each_request():
     """
     if auth is None:
         return
-    end_p = ['/api/v1/status/',
+    excluded_paths = ['/api/v1/status/',
              '/api/v1/unauthorized/',
              '/api/v1/forbidden/',
              '/api/v1/auth_session/login/']
-    if not auth.require_auth(request.path, end_p):
+    if not auth.require_auth(request.path, excluded_paths):
         return
     if auth.authorization_header(request) is None and\
             auth.session_cookie(request) is None:
@@ -55,21 +55,21 @@ def run_before_each_request():
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """ Not found error handler
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """ Unauthorized handler
+    """ Unauthorized error handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def forbidden(error) -> str:
-    """ Forbidden handler
+    """ Forbidden error handler
     """
     return jsonify({"error": "Forbidden"}), 403
 

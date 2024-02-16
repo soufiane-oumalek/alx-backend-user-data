@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-BasicAuth class
+BasicAuthentication class
 """
 from models.user import User
 from .auth import Auth
@@ -9,14 +9,13 @@ from typing import TypeVar
 
 
 class BasicAuth(Auth):
-    """BasicAuth class"""
+    """BasicAuthentication class"""
     def extract_base64_authorization_header(
             self,
             authorization_header: str
             ) -> str:
         """
-        returns the Base64 part
-        of the Authorization header
+        returns the Base64 of Authorization
         """
         if authorization_header is None or \
             not isinstance(authorization_header, str) or \
@@ -29,7 +28,7 @@ class BasicAuth(Auth):
             base64_authorization_header: str
             ) -> str:
         """
-        Basic - Base64 decode
+        BasicBase64
         """
         if base64_authorization_header is None or \
                 not isinstance(base64_authorization_header, str):
@@ -45,7 +44,7 @@ class BasicAuth(Auth):
             decoded_base64_authorization_header: str
             ) -> (str, str):
         """
-        Basic - User credentials
+        User basic credentials
         """
         if decoded_base64_authorization_header is None or \
             not isinstance(decoded_base64_authorization_header, str) or \
@@ -62,7 +61,7 @@ class BasicAuth(Auth):
         user_pwd: str
     ) -> TypeVar('User'):
         """
-        Basic - User object
+        User basic object
         """
         if user_email is None or not isinstance(user_email, str) or \
                 user_pwd is None or not isinstance(user_pwd, str):
@@ -75,7 +74,7 @@ class BasicAuth(Auth):
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
-        Basic - Overload current_user - and BOOM!
+        Basic current_user
         """
         author = self.authorization_header(request)
         authorBase64 = self.extract_base64_authorization_header(author)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Module of Users views
+"""Module users views
 """
 from api.v1.views import app_views
 from flask import abort, jsonify, request, make_response
@@ -17,24 +17,24 @@ def login() -> str:
     password = request.form.get("password")
     if password is None or password == "":
         return jsonify({"error": "password missing"}), 400
-    """get the user from the database using the email"""
+    """get user using email"""
     user_list = User.search({'email': email})
-    """check if the user exists"""
+    """checking existing for user """
     if not user_list or user_list == []:
         return jsonify({"error": "no user found for this email"}), 404
     user = user_list[0]
-    """check if the password is valid"""
+    """checking the password """
     if not user.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
     from api.v1.app import auth
-    """create a session for a user"""
+    """creating session to user"""
     session_id = auth.create_session(user.id)
-    """get the session name from variable envirenement"""
-    SESSION_NAME = os.getenv("SESSION_NAME")
-    """make a response using user data"""
+    """get session"""
+    session_n = os.getenv("SESSION_NAME")
+    """response from user data"""
     response = make_response(user.to_json())
-    """set a cookie for the session id"""
-    response.set_cookie(SESSION_NAME, session_id)
+    """cookie to the session id"""
+    response.set_cookie(session_n, session_id)
     return response
 
 

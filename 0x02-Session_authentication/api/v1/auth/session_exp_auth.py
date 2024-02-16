@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-session of authentication
+session authentication
 """
 from .session_auth import SessionAuth
 import uuid
@@ -15,7 +15,7 @@ class SessionExpAuth(SessionAuth):
     """
     def __init__(self):
         """
-        constrator method
+        method
         """
         try:
             self.session_duration = int(os.getenv("SESSION_DURATION"))
@@ -24,7 +24,7 @@ class SessionExpAuth(SessionAuth):
 
     def create_session(self, user_id=None):
         """
-        create session for user
+        creating session to user
         """
         session_id = super().create_session(user_id)
         if session_id is None:
@@ -36,7 +36,7 @@ class SessionExpAuth(SessionAuth):
         return session_id
 
     def user_id_for_session_id(self, session_id=None):
-        """user id for session id"""
+        """user id to session """
         if session_id is None or session_id not in self.user_id_by_session_id:
             return None
         if self.session_duration <= 0:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-session of authentication
+session authentication
 """
 from .session_exp_auth import SessionExpAuth
 import uuid
@@ -14,7 +14,7 @@ class SessionDBAuth(SessionExpAuth):
     session database authontication"""
     def create_session(self, user_id=None):
         """
-        create session object
+        session creating
         """
         session_id = super().create_session(user_id)
         if session_id is None:
@@ -34,7 +34,6 @@ class SessionDBAuth(SessionExpAuth):
             return None
         if super().user_id_for_session_id(session_id) is None:
             return None
-        # UserSession.load_from_file()
         try:
             user_session = UserSession.search({"session_id": session_id})
         except Exception:
@@ -46,7 +45,7 @@ class SessionDBAuth(SessionExpAuth):
 
     def destroy_session(self, request=None):
         """
-        session destroy
+        destroy session
         """
         if not super().destroy_session(request):
             return False

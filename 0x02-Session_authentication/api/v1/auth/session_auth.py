@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-session of authentication
+sess_authentication
 """
 from .auth import Auth
 import uuid
@@ -9,13 +9,13 @@ from models.user import User
 
 class SessionAuth(Auth):
     """
-    authentication session
+    class authentication session
     """
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
         """
-        Create a session"""
+        session creating"""
         if user_id is None or not isinstance(user_id, str):
             return None
         Session_id = str(uuid.uuid4())
@@ -24,7 +24,7 @@ class SessionAuth(Auth):
 
     def user_id_for_session_id(self, session_id: str = None) -> str:
         """
-        User ID for Session ID
+        User id for Session
         """
         return None if session_id is None or\
             not isinstance(session_id, str)\
@@ -32,7 +32,7 @@ class SessionAuth(Auth):
 
     def current_user(self, request=None):
         """
-        Use Session ID for identifying a User
+        Session id to identify the User
         """
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)
@@ -40,7 +40,7 @@ class SessionAuth(Auth):
 
     def destroy_session(self, request=None):
         """
-        Logout
+        destroy session logout
         """
         session_id = self.session_cookie(request)
         user_id = self.user_id_for_session_id(session_id)

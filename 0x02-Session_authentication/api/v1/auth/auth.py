@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Auth class
+Authentication class
 """
 from flask import request
 from typing import List, TypeVar
@@ -9,7 +9,7 @@ import os
 
 
 class Auth:
-    """Auth class"""
+    """Authentication class"""
     def require_auth(self,
                      path: str,
                      excluded_paths: List[str]) -> bool:
@@ -48,6 +48,6 @@ class Auth:
         """
         if request is None:
             return None
-        SESSION_NAME = os.getenv("SESSION_NAME")
-        session_id = request.cookies.get(SESSION_NAME)
+        SESSION_n = os.getenv("SESSION_NAME")
+        session_id = request.cookies.get(SESSION_n)
         return session_id
