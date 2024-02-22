@@ -12,6 +12,7 @@ def _hash_password(password: str) -> str:
     """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
+
 def _generate_uuid() -> str:
     """ Generate uuid
     """
@@ -92,4 +93,3 @@ class Auth:
             raise ValueError
         pwd = _hash_password(password)
         self._db.update_user(up_user.id, hashed_password=pwd, reset_token=None)
-
